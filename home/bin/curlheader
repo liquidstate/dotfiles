@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# curlheader will return all or specific headers for a given URL
+# e.g. curlheader ${url}
+# e.g. curlheader ${header} ${url}
+function curlheader() {
+  if [[ -z "$2" ]]; then
+    echo "curl -k -s -D - $1 -o /dev/null"
+    curl -k -s -D - $1 -o /dev/null:
+  else
+    echo "curl -k -s -D - $2 -o /dev/null | grep $1:"
+    curl -k -s -D - $2 -o /dev/null | grep $1:
+  fi
+}
+
+curlheader "$@"

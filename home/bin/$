@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Execute everything after '$', useful for running example code
+"$@"

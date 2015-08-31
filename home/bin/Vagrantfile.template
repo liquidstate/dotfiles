@@ -1,0 +1,93 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Available Boxes
+CENTOS6 = "nrel/centos-6.5-x86_64"
+CENTOS7 = "centos7"
+
+# We use the project name for VM hostnames
+PROJECT_DIR  = Dir.pwd
+PROJECT_NAME = File.basename(PROJECT_DIR)
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+API_VERSION = "2"
+
+Vagrant.configure(API_VERSION) do |config|
+{
+  :box1 => {
+    :box       => CENTOS,
+    :hostname  => PROJECT_NAME + "1.local.vm"
+    #:ram       => 1024,
+    #:ip       => '0.0.0.0',
+    #:forwards => { 80 => 10080, 443 => 10443, },
+  },
+  #2#:box2 => {
+  #2#  :box       => CENTOS,
+  #2#  :hostname  => PROJECT_NAME + "2.local.vm"
+  #2#  #:ip       => '0.0.0.0',
+  #2#  #:forwards => { 80 => 10080, 443 => 10443, },
+  #2#},
+  #3#:box3 => {
+  #3#  :box       => CENTOS,
+  #3#  :ram       => 1024,
+  #3#  :hostname  => PROJECT_NAME + "3.local.vm"
+  #3#  #:ip       => '0.0.0.0',
+  #3#  #:forwards => { 80 => 10080, 443 => 10443, },
+  #3#},
+  #4#:box4 => {
+  #4#  :box       => CENTOS,
+  #4#  :ram       => 1024,
+  #4#  :hostname  => PROJECT_NAME + "4.local.vm"
+  #4#  #:ip       => '0.0.0.0',
+  #4#  #:forwards => { 80 => 10080, 443 => 10443, },
+  #4#},
+  #5#:box5 => {
+  #5#  :box       => CENTOS,
+  #5#  :ram       => 1024,
+  #5#  :hostname  => PROJECT_NAME + "5.local.vm"
+  #5#  #:ip       => '0.0.0.0',
+  #5#  #:forwards => { 80 => 10080, 443 => 10443, },
+  #5#},
+}.each do |name,cfg|
+  config.vm.define name do |vm_config|
+    vm_config.vm.host_name = cfg[:hostname] if cfg[:hostname]
+    vm_config.vm.network :hostonly, cfg[:ip] if cfg[:ip]
+    vm_config.vm.box = cfg[:box] if cfg[:box]
+
+    if Vagrant.has_plugin?("vagrant-hosts")
+      vm_config.vm.provision :hosts
+    end
+
+    if cfg[:forwards]
+      cfg[:forwards].each do |from,to|
+        vm_config.vm.forward_port from, to
+      end
+    end
+
+#    customize = ["modifyvm", :id] + (cfg[:modify] || [])
+#    if ! customize.include?("--name")
+#      # This adds the name of the box to the vm-name in
+#      # VirtualBox so we can identify it easily in the GUI.
+#      customize += [ "--name", File.basename(File.dirname(__FILE__)) + "-#{name}" + "_#{Time.now.to_i}" ]
+#    end
+#    vm_config.vm.customize customize
+
+    # Configure a host-only IP address via DHCP
+    vm_config.vm.network "private_network", type: "dhcp"
+    vm_config.vm.provision :shell, :inline => "echo This host is $(hostname). It can be reached on $(ip addr show eth1 | grep 'inet ' | awk '{print $2}' | cut -d'/' -f1)"
+
+    # Share additional folders to the guest VM. 
+    vm_config.vm.synced_folder "puppet",   "/etc/puppet/modules"
+    vm_config.vm.synced_folder "~/puppet", "/usr/share/puppet/modules"
+
+    # Install Puppet
+    #vm_config.vm.provision :shell, :path => "https://raw.githubusercontent.com/hashicorp/puppet-bootstrap/master/centos_6_x.sh"
+
+    vm_config.vm.provision :puppet do |puppet|
+      puppet.module_path    = [ "puppet", "~/puppet" ]
+      puppet.manifests_path = "puppet"
+      puppet.manifest_file  = "site.pp"
+    end
+  end
+end
+end

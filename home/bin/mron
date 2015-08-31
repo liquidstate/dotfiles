@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+  echo "you need to specify a repository name"
+  exit 1
+fi
+
+MRCONFIGDIR=~/.config/mr
+REPO_NAME=$1
+
+if [[ -f "${MRCONFIGDIR}/available.d/${REPO_NAME}" ]]; then
+  ln -s ${MRCONFIGDIR}/available.d/${REPO_NAME} ${MRCONFIGDIR}/config.d/
+else
+  echo "error: undefined repository - $REPO_NAME"
+  exit 1
+fi

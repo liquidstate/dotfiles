@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#
+# Build one VM by default, but allow more
+#
+numofboxes=1
+if [ "x$1" != "x" ]; then numofboxes=$1; fi
+
+echo -e "\e[0;36m*** Initialising Vagrantfile with $numofboxes VMs...\e[0m"
+
+#
+# Prep the directory
+#
+mkdir puppet 2> /dev/null
+touch puppet/site.pp
+cp -v ~/bin/Vagrantfile.template Vagrantfile
+
+#
+# Uncomment blocks for additional VMs
+#
+for i in $(seq 1 $numofboxes); do
+    sed -i '' "s/#${i}#//g" Vagrantfile;
+done
+

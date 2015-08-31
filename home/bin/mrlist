@@ -1,0 +1,17 @@
+#!/bin/bash
+
+MRCONFIGDIR=~/.config/mr
+
+for i in $(ls -1 ${MRCONFIGDIR}/available.d); do
+  if [[ -f ${MRCONFIGDIR}/config.d/${i} ]]; then 
+    REPO_ON="$REPO_ON $i"
+  else
+    REPO_OFF="$REPO_OFF $i"
+  fi
+done
+
+echo "Enabled repositories:"
+for i in $REPO_ON; do echo "  $i"; done
+echo " "
+echo "Disabled repositories:"
+for i in $REPO_OFF; do echo "  $i"; done

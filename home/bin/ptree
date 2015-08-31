@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Show the ownership/permissions of all parent directories
+function ptree()
+{
+   path=$1
+   if [[ "x${path}" == "x" ]]; then path=$(pwd); fi
+   if [[ ! "$path" =~ ^/ ]];   then path="$(pwd)/${path}"; fi
+   namei -mo $path
+}
+
+ptree "$@"
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Best attempt at fixing file permissions
+function fixperms(){
+    find . \( -name "*.sh" -or -type d \) -exec chmod 755 {} \; && find . -type$
+chmod 644 {} \;
+}
+
+fixperms "$@"
+

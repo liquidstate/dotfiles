@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Choose the right executable
+if [[ $(uname) == 'Darwin' ]]; then OS=mac; else OS=linux; fi
+
+HUB=$(find ~/bin -name hub | grep $OS)
+alias hub="$HUB"
+
+# Give 'git' superpowers
+eval "$(hub alias -s)"

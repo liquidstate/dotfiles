@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+  echo "you need to specify a repository name"
+  exit 1
+fi
+
+MRCONFIGDIR=~/.config/mr/available.d
+REPO_NAME=$1
+
+# write the standard template
+cat <<EOF > ${MRCONFIGDIR}/${REPO_NAME}
+[$HOME/.config/vcsh/repo.d/REPO_NAME.git]
+checkout = vcsh clone git@github.com:liquidstate/dotfiles-REPO_NAME.git REPO_NAME
+EOF
+
+# inject details into template
+sed 's/REPO_NAME/${REPO_NAME}/g' ${MRCONFIGDIR}/${REPO_NAME}

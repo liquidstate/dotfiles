@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Prep a new git repo
+function ginit() {
+    mkdir $1;
+    cd $1;
+    git init;
+    touch README.md;
+    git add README.md;
+    git commit -m 'Initialisation';
+}
+
+ginit "$@"
+

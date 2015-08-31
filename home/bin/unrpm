@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Unpack an RPM
+function unrpm() { rpm2cpio ${1%%/} | cpio -idmv; }
+
+unrpm "$@"
+

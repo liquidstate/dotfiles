@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Get IP adress (not very portable)
+function myip()
+{
+    MY_IP=$(/sbin/ifconfig | grep -m1 'inet addr' | awk '/inet/ { print $2 } ' | sed -e s/addr://)
+    echo ${MY_IP:-"Not connected"}
+}
+
+myip
+

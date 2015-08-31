@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for i in $(vcsh list); do
+  echo "** $i **"
+  vcsh $i "$@"
+  echo " "
+done

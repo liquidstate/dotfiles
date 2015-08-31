@@ -1,0 +1,74 @@
+[user]
+	name = Bryan Ross
+	email = bryan@liquidstate.net
+
+[advice]
+    statusHints = false
+
+[alias]
+    # https://git.wiki.kernel.org/index.php/Aliases
+
+    co = checkout
+    cob = checkout -b
+    d = diff --color-words
+    cam = commit -a -m
+    rv = remote -v
+    forget = rm --cached
+
+    # Others
+    br = branch -a
+    st = status -s -u
+    rh = reset HEAD
+    who = shortlog -s --
+    listconf = config --global --list
+    diffall = diff HEAD
+    scrub = !git reset --hard && git clean -fd
+    whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=sh
+    shorten = "!sh -c 'curl -i http://git.io -F url=$1' -"
+    redocommit = reset --soft HEAD^
+    short = rev-parse --short
+
+    # Grab a pull request as a local branch.
+    pr = "!f() { \
+      [ $# -eq "1" ] && REMOTE=origin PR=$1 || REMOTE=$1 PR=$2; \
+      git fetch ${REMOTE} refs/pull/${PR}/head:pr/${PR}; \
+    }; f"
+
+[color]
+    # Use nice syntax highlighting everywhere.
+    ui = true
+
+[color]
+# ui = true is a superset of all the more specific color options
+#  as documented at http://book.git-scm.com/5_customizing_git.html
+# When set to always, always use colors in all git commands which are capable of colored output.
+# When false, never. When set to true or auto, use colors only when the output is to the terminal.
+# When more specific variables of color.* are set, they always take precedence over this setting.
+# Defaults to false.
+    ui = auto
+    # diff = auto
+    # status = auto
+    # branch = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[core]
+	editor = nano
+
+[gui]
+    fontdiff = -family Monaco -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+
+[push]
+	default = simple

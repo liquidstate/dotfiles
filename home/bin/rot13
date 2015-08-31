@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# EBG13 rapbqr/qrpbqr grkg
+function rot13() {
+  tr a-zA-Z n-za-mN-ZA-M
+}
+
+if [[ $# != 0 ]]; then
+  echo "$@" | rot13
+else 
+  rot13
+fi

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+  echo "you need to specify a repository name"
+  exit 1
+fi
+
+MRCONFIGDIR=~/.config/mr/config.d
+REPO_NAME=$1
+
+rm -f ${MRCONFIGDIR}/${REPO_NAME}
