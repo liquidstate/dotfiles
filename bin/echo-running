@@ -1,0 +1,7 @@
+#!/bin/bash
+
+function running() {
+    echo -en "$col_white ⇒ "$1"...$col_reset"
+}
+
+running "$@"

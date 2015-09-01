@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function ok() {
+    echo -en "$col_green[ok] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+ok "$@"

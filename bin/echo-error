@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function error() {
+    echo -en "$col_red[error] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+error "$@"

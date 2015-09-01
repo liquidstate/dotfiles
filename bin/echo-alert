@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function alert() {
+    echo -en "$col_yellow[alert] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+alert "$@"

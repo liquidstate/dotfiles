@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function bot() {
+    echo
+    echo -en "$col_green\[._.]/$col_reset - $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+bot "$@"
