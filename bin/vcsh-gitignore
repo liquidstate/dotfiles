@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## Ignore any files not explicitly in our repositories so that `git status` is clean
+
+## the first time you do it vcsh generates and include list based on what is currently
+## tracked by git.  One you create the ignore file and add it to the repo (note use of
+## -f to add in spite of it being on  the ignore list at first),  you need to generate
+## the list again  so that it adds the  ignore list (now itself tracked by git) to the
+## list of  not-ignored files.  Finally  you add the  revised  version  to  git before
+## actually committing.
+
+for repo in $(vcsh list); do
+  running $repo || echo "--> $repo"
+
+  vcsh write-gitignore $repo
+  vcsh $repo add -f .gitignore.d/$repo
+  vcsh write-gitignore $repo
+  vcsh $repo add .gitignore.d/$repo
+  vcsh $repo commit -m "Add/update .gitignore.d/$repo"
+  vcsh $repo push
+done
