@@ -74,5 +74,6 @@
 !/bin/unrpm
 !/bin/urlencode
 !/bin/vcsh-all
+!/bin/vcsh-gitignore
 !/bin/vinit
 !/bin/webserver
