@@ -1,0 +1,5 @@
+# Pull Strings Locally
+alias pesite='sudo nano -w /etc/puppet/manifests/site.pp'
+alias ptsite='sudo puppet apply --noop --verbose /etc/puppet/manifests/site.pp'
+alias pasite='sudo puppet apply /etc/puppet/manifests/site.pp'
+

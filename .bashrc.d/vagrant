@@ -1,0 +1,6 @@
+# Vagrant
+alias vup='vagrant up'
+alias vp='vagrant provision'
+alias vsh='vagrant ssh'
+alias vssh='vagrant ssh'
+alias vdown='vagrant halt'

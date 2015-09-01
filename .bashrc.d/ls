@@ -1,0 +1,32 @@
+# Enable colour in 'ls'
+if [ -x /usr/bin/dircolors ]; then
+    eval "`dircolors -b`"
+else
+    # https://github.com/seebi/dircolors-solarized/issues/10
+    export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+fi
+
+# Choose the best ls
+if which gls > /dev/null; then
+    alias ls='gls -H --color --group-directories-first'
+else
+    alias ls='ls -h'
+fi
+
+alias lx='ls -lXB'         #  Sort by extension.
+alias lk='ls -lSr'         #  Sort by size, biggest last.
+alias lt='ls -ltr'         #  Sort by date, most recent last.
+alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+alias ll="ls -lv --group-directories-first"
+alias lm='ll |more'        #  Pipe through 'more'
+alias lr='ll -R'           #  Recursive ls.
+alias la='ll -A'           #  Show hidden files.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+alias dir='ls --format=vertical'
+alias vdir='ls --format=long'
+
+alias -- .='pwd'
+alias -- ..='cd ..'
+alias -- ...='cd ../..'
+alias -- ....='cd ../../..'

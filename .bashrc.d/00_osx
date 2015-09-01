@@ -1,0 +1,72 @@
+#-------------------------------------------------------------
+# "Design is not just what it looks like and feels like.
+#  Design is how it (sorta) works."
+#-------------------------------------------------------------
+# Common commands
+alias subl="open -a Sublime\ Text"
+function chrome() {
+    if [[ $1 == http* ]]; then
+        open -a 'Google Chrome' $1
+    else
+        open -a 'Google Chrome' "http://$1"
+    fi
+}
+
+# Use GNU 'find' if we have it installed
+if which gfind > /dev/null; then
+    alias find='gfind'
+fi
+
+# Open finder in the current directory (or the one given)
+function finder() {
+    if [ $# -eq 0 ]; then
+        open .;
+    else
+        open "$@";
+    fi;
+}
+
+
+# Change working directory to the top-most Finder window location
+function cdf() { # short for `cdfinder`
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
+}
+
+# Show/Hide hidden files in Finder
+# Show/hide hidden files in Finder
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Trim new lines and copy to clipboard
+alias c="tr -d '\n' | pbcopy"
+
+# OS X has no md5sum, so use md5 as a fallback
+if ! which md5sum > /dev/null; then alias md5sum=md5; fi
+
+# Recursively delete `.DS_Store` files
+alias dsclean="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Flush the DNS on Mac OSX
+alias dnsflush='dscacheutil -flushcache'
+
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+  alias "$method"="lwp-request -m '$method'"
+done
+
+alias mute="osascript -e 'set volume output muted true'"
+alias unmute="osascript -e 'set volume output muted false'"
+
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# Use Mac OSX Preview to open a man page in a more handsome format
+function manp() {
+  man -t $1 | open -f -a /Applications/Preview.app
+}

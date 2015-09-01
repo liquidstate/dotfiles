@@ -1,0 +1,31 @@
+#-------------------------------------------------------------
+# Bash Behaviour
+#-------------------------------------------------------------
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# minor errors in the spelling of a directory component in a cd command
+# will be corrected
+shopt -s cdspell
+
+# If set, Bash attempts to save all lines of a multiple-line command in
+# the same history entry. This allows easy re-editing of multi-line commands.
+shopt -s cmdhist
+
+# If set, then command history will be saved after each command rather
+# than on shell exit. This will effectively provide a shared bash history
+# across multiple sessions.
+#shopt -s histappend
+#PROMPT_COMMAND='history -a'
+
+# Show the exit value of commands when not 0
+trap 'echo Exit $?' ERR
+
+# Nicer time format
+TIMEFORMAT="
+
+Elapsed time   : %3lR
+User mode      : %3lU
+System mode    : %3lS
+CPU percentage : %P"

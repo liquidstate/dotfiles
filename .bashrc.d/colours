@@ -1,0 +1,72 @@
+#-------------------------------------------------------------
+# Define Colours
+#-------------------------------------------------------------
+if tput setaf 1 &> /dev/null; then
+    tput sgr0; # reset colors
+    export col_bold=$(tput bold);
+    export col_reset=$(tput sgr0);
+    # Solarized colors, taken from http://git.io/solarized-colors.
+    export col_black=$(tput setaf 0);
+    export col_blue=$(tput setaf 33);
+    export col_cyan=$(tput setaf 37);
+    export col_green=$(tput setaf 64);
+    export col_orange=$(tput setaf 166);
+    export col_purple=$(tput setaf 125);
+    export col_red=$(tput setaf 124);
+    export col_violet=$(tput setaf 61);
+    export col_white=$(tput setaf 15);
+    export col_yellow=$(tput setaf 136);
+else
+    export col_bold='';
+    export col_reset="\e[0m";
+    export col_black="\e[1;30m";
+    export col_blue="\e[1;34m";
+    export col_cyan="\e[1;36m";
+    export col_green="\e[1;32m";
+    export col_orange="\e[1;33m";
+    export col_purple="\e[1;35m";
+    export col_red="\e[1;31m";
+    export col_violet="\e[1;35m";
+    export col_white="\e[1;37m";
+    export col_yellow="\e[1;33m";
+fi;
+
+function ok() {
+    echo -en "$col_green[ok] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+function bot() {
+    echo
+    echo -en "$col_green\[._.]/$col_reset - $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+function running() {
+    echo -en "$col_white ⇒ "$1"...$col_reset"
+}
+
+function action() {
+    echo -e "$col_yellow[action]$col_reset"
+    running $1
+}
+
+function alert() {
+    echo -en "$col_yellow[alert] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+function warn() {
+    echo -en "$col_yellow[warning] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}
+
+function error() {
+    echo -en "$col_red[error] $col_white"
+    echo $1
+    echo -en "$col_reset"
+}

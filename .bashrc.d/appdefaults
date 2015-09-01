@@ -1,0 +1,43 @@
+#-------------------------------------------------------------
+# App Defaults
+#-------------------------------------------------------------
+
+# Text Editing for Humans
+if [ -e `which nano` ]; then
+        export EDITOR="`which nano` -w"
+        alias nano='nano -w'
+fi
+
+# `s` with no arguments opens the current directory in Sublime Text, otherwise
+# opens the given location
+function s() {
+    if [ $# -eq 0 ]; then
+        subl .;
+    else
+        subl "$@";
+    fi;
+}
+
+# Enable colour in the terminal
+export CLICOLOR=1
+
+# Always enable colored `grep` output.
+export GREP_OPTIONS='--color=auto';
+
+# More readable disk usage
+alias du='du -kh'
+alias df='df -kH'
+
+# Set default blocksize for ls, df, du
+export BLOCKSIZE=1k
+
+# Make ping play nice
+alias ping='ping -c4'
+
+# Shush SSH
+alias ssh='ssh -q'
+
+# Sorry...
+alias wget='wget --no-check-certificate'
+alias wget-mirror='wget --mirror --convert-links --adjust-extension --page-requisites --no-parent'
+
