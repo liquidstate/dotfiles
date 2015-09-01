@@ -1,0 +1,4 @@
+#!/bin/bash
+
+## track a file in version control, using -f to bypass any .gitignore that might be place.
+vcsh $1 add -f $2

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+## list the files from the current directory that are tracked in version control
+vcsh list-tracked | sed "s|^$HOME\/||"

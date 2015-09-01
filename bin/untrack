@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## remove a file from version control, but don't delete the actual file
+
+function list-tracked() {
+  vcsh $1 ls-files --full-name 
+}
+function prepend-path() {
+  sed "s,^,$(printf '%s\n' "$HOME/" | sed 's/[,\&]/\\&/g')," | sort -u
+}
+
+## get the full absolute path to the file first
+file=$(realpath $1)
+
+## find which repo is tracking this file
+for i in $(vcsh list); do
+    ## look for an exact match, breaking the for loop early if we find it
+    if list-tracked $i | prepend-path | grep -qs "^${file}$"; then
+        repo=$i
+        break
+    fi
+done
+
+if [ ! -z "$repo" ]; then
+    ## remove the file from version control, but don't delete the actual file
+    vcsh $repo rm --cached $file
+    echo-ok "$file removed from $repo repository"
+    exit=0
+else
+    echo-error "could not find $file in any repository"
+    exit=1
+fi
+
+exit $exit

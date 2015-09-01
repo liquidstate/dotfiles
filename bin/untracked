@@ -1,0 +1,4 @@
+#!/bin/bash
+
+## list the files from the current directory that are not tracked in version control
+vcsh list-untracked | sed "s|^$HOME\/||"
