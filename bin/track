@@ -1,4 +1,21 @@
 #!/bin/bash
 
-## track a file in version control, using -f to bypass any .gitignore that might be place.
-vcsh $1 add -f $2
+repo=$1
+
+## Check the given repository exists
+if ! vcsh list | grep -qs $repo; then
+    echo-error "Could not find repository: $1"
+    exit 1
+fi
+
+## Process subsequent arguement (to support bash globbing)
+shift
+for i in "$@"; do
+    ## only add files that exist
+    if stat -q "$i" > /dev/null; then
+        ## track a file in version control, using -f to bypass any .gitignore that might be place.
+        vcsh $repo add -f $i
+    else
+        echo-warning "File does not exist: $i"
+    fi
+done
