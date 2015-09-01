@@ -10,12 +10,12 @@
 ## actually committing.
 
 for repo in $(vcsh list); do
-  running $repo || echo "--> $repo"
+  echo "--> $repo"
 
   vcsh write-gitignore $repo
-  vcsh $repo add -f .gitignore.d/$repo
+  vcsh $repo add -f ~/.gitignore.d/$repo
   vcsh write-gitignore $repo
-  vcsh $repo add .gitignore.d/$repo
+  vcsh $repo add ~/.gitignore.d/$repo
   vcsh $repo commit -m "Add/update .gitignore.d/$repo"
   vcsh $repo push
 done
