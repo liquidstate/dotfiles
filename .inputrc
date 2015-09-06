@@ -1,0 +1,14 @@
+# .inputrc controls readline behaviour
+
+# none, visible or audible
+set bell-style visible
+
+# ignore case when doing bash filename completions
+set completion-ignore-case on
+
+# Dont wrap lines
+set horizontal-scroll-mode on
+
+# Mark directory symlinks just like normal directories
+set mark-symlinked-directories on
+
