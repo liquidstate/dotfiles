@@ -1,7 +1,8 @@
 #!/bin/bash
 
-## remove a file from version control, but don't delete the actual file
+## remove file(s) from version control, but don't delete the actual file(s)
 
+## Useful functions
 function list-tracked() {
   vcsh $1 ls-files --full-name 
 }
@@ -9,26 +10,34 @@ function prepend-path() {
   sed "s,^,$(printf '%s\n' "$HOME/" | sed 's/[,\&]/\\&/g')," | sort -u
 }
 
-## get the full absolute path to the file first
-file=$(realpath $1)
+## Process each arguement (to support bash globbing)
+errors=0
 
-## find which repo is tracking this file
-for i in $(vcsh list); do
-    ## look for an exact match, breaking the for loop early if we find it
-    if list-tracked $i | prepend-path | grep -qs "^${file}$"; then
-        repo=$i
-        break
+for i in "$@"; do
+    ## get the full absolute path to the file first
+    file=$(realpath "$i")
+
+    ## find which repo is tracking this file
+    for j in $(vcsh list); do
+        ## look for an exact match, breaking the for loop early if we find it
+        if list-tracked "$j" | prepend-path | grep -qs "^${file}$"; then
+            repo=$j
+            break
+        fi
+    done
+
+    if [ ! -z "$repo" ]; then
+        ## remove the file from version control, but don't delete the actual file
+        vcsh $repo rm --cached "$file"
+        echo-ok "$file removed from $repo repository"
+    else
+        echo-error "could not find $file in any repository"
+        errors=$[$errors+1]
     fi
 done
 
-if [ ! -z "$repo" ]; then
-    ## remove the file from version control, but don't delete the actual file
-    vcsh $repo rm --cached $file
-    echo-ok "$file removed from $repo repository"
-    exit=0
-else
-    echo-error "could not find $file in any repository"
-    exit=1
+if [ $errors -gt 0 ]; then
+    echo-error "$errors files could not be untracked"
 fi
 
-exit $exit
+exit $errors

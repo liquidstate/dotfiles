@@ -1,0 +1,9 @@
+{
+	"color_scheme": "Packages/User/freshcut-contrast (SL).tmTheme",
+	"ignored_packages":
+	[
+		"Markdown",
+		"Vintage"
+	],
+	"theme": "Spacegray.sublime-theme"
+}

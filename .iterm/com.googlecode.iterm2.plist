@@ -505,6 +505,10 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NSColorPanelMode</key>
+	<string>4</string>
+	<key>NSColorPickerSlidersDefaults</key>
+	<string>1</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -542,7 +546,7 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>448 503 384 129 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>292 273 570 451 0 0 1280 777 </string>
+	<string>657 179 570 451 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>839 312 941 638 0 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -753,11 +757,11 @@
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.51685798168182373</real>
+				<real>0.18741865456104279</real>
 				<key>Green Component</key>
-				<real>0.50962930917739868</real>
+				<real>0.82466894388198853</real>
 				<key>Red Component</key>
-				<real>0.44058024883270264</real>
+				<real>0.16478699445724487</real>
 			</dict>
 			<key>Cursor Text Color</key>
 			<dict>
@@ -1159,7 +1163,7 @@
 			<key>Silence Bell</key>
 			<false/>
 			<key>Smart Cursor Color</key>
-			<true/>
+			<false/>
 			<key>Smart Selection Rules</key>
 			<array>
 				<dict>
