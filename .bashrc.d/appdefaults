@@ -3,7 +3,7 @@
 #-------------------------------------------------------------
 
 # Text Editing for Humans
-if [ -e `which nano` ]; then
+if [ -e $(which nano &>/dev/null) ]; then
         export EDITOR="`which nano` -w"
         alias nano='nano -w'
 fi

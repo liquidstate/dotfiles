@@ -13,7 +13,7 @@ function chrome() {
 }
 
 # Use GNU 'find' if we have it installed
-if which gfind > /dev/null; then
+if which gfind &>/dev/null; then
     alias find='gfind'
 fi
 
@@ -45,7 +45,7 @@ alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && k
 alias c="tr -d '\n' | pbcopy"
 
 # OS X has no md5sum, so use md5 as a fallback
-if ! which md5sum > /dev/null; then alias md5sum=md5; fi
+if ! which md5sum &>/dev/null; then alias md5sum=md5; fi
 
 # Recursively delete `.DS_Store` files
 alias dsclean="find . -type f -name '*.DS_Store' -ls -delete"

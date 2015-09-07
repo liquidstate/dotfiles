@@ -1,5 +1,5 @@
 # Luxury Less
-if [ -e `which less` ]; then
+if [ -e $(which less &>/dev/null) ]; then
     # sometimes less is more
     alias more='less'
 
