@@ -28,6 +28,9 @@ export GREP_OPTIONS='--color=auto';
 alias du='du -kh'
 alias df='df -kH'
 
+# Dig
+alias dig='dig +short'
+
 # Set default blocksize for ls, df, du
 export BLOCKSIZE=1k
 
