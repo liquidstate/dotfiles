@@ -2,7 +2,7 @@
 
 function alert() {
     echo -en "$col_yellow[alert] $col_white"
-    echo $1
+    echo "$@"
     echo -en "$col_reset"
 }
 

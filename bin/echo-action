@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function running() {
-    echo -en "$col_white ⇒ "$@"...$col_reset"
+    echo -e "$col_white ⇒ "$@"...$col_reset"
 }
 
 running "$@"

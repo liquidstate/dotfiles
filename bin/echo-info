@@ -2,7 +2,7 @@
 
 function info() {
     echo -en "$col_green[info] $col_white"
-    echo $1
+    echo "$@"
     echo -en "$col_reset"
 }
 

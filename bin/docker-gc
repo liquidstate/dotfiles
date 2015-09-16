@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# wrapper around docker-gc
+
+# Where to find the real docker-gc
+REAL_DOCKER_GC=$HOME/.src/docker-gc/docker-gc
+
+# Where to find docker
+#DOCKER=/usr/local/bin/docker
+
+# How long to keep exited containers (in seconds)
+GRACE_PERIOD_SECONDS=3600
+
+# Where to hold temporary runtimes files
+STATE_DIR=/tmp/docker-gc
+
+# Excluding Images From Garbage Collection
+#------------------------------------------
+# There can be images that are large that serve as a common base for many
+# application containers that make sense to keep.
+#
+# Create a file with specific IDs or, more usefully, name patterns (grep)
+# eg.
+#   spotify/cassandra:latest
+#   9681260c3ad5
+#
+EXCLUDE_FROM_GC=$HOME/.docker-gc.excluded_images
+
+# Excluding Containers From Garbage Collection
+#----------------------------------------------
+# There can also be containers (for example data only containers) which you 
+# would like to exclude from garbage collection.
+#
+# Create a file with name patterns (grep)
+# eg.
+#   mariadb-data
+#
+EXCLUDE_CONTAINERS_FROM_GC=$HOME/.docker-gc.excluded_containers
+
+export GRACE_PERIOD_SECONDS
+export DOCKER
+export STATE_DIR
+export EXCLUDE_FROM_GC
+export EXCLUDE_CONTAINERS_FROM_GC
+
+$REAL_DOCKER_GC "$@"
+
+
+if [ $(cat $STATE_DIR/containers.reap | wc -l | grep -o -E '[0-9]+') -eq 0 ]; then
+  echo-info "No old containers to remove"
+else
+  echo-info "The following old containers were removed:"
+  cat $STATE_DIR/containers.reap
+fi
+
+if [ $(cat $STATE_DIR/images.reap | wc -l | grep -o -E '[0-9]+') -eq 0 ]; then
+  echo-info "No un-used images to remove"
+else
+  echo-info "The following unused images were removed:"
+  cat $STATE_DIR/images.reap
+fi
