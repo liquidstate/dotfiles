@@ -1,1 +1,0 @@
-/Users/bryan/bin/hub-linux-amd64-2.2.1/etc/hub.bash_completion.sh

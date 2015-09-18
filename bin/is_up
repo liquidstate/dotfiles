@@ -1,0 +1,17 @@
+#!/bin/bash
+
+function is_up() {
+  host=$1
+  timeout=3
+  required_pings=1
+
+  ping -q -w$timeout -c$required_pings "$host" &>/dev/null;
+  return $?
+}
+
+errors=0
+for i in "$@"; do
+  if ! is_up "$i"; then errors=$[$errors + 1]; fi
+done
+
+exit $errors
