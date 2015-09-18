@@ -5,10 +5,10 @@ trap ctrl_c INT
 
 function ctrl_c() {
   echo "Wait..."
-  # Wait 10 seconds for our processes to stop
+  # Wait 20 seconds for our processes to stop
   SELF=$(basename $0)
-  for i in `seq 1 10`; do
-    if [ $(ps | grep $SELF | wc -l) -lt 3 ]; then
+  for i in `seq 1 20`; do
+    if [ $(ps | grep $SELF | wc -l) -le 2 ]; then
       reset
       exit
     fi

@@ -11,7 +11,6 @@
 !/.bashrc.d/complete
 !/.bashrc.d/git
 !/.bashrc.d/git-completion.bash
-!/.bashrc.d/hub.bash_completion.sh
 !/.bashrc.d/less
 !/.bashrc.d/ls
 !/.bashrc.d/prompt
