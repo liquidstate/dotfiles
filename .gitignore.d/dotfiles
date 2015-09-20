@@ -1,4 +1,11 @@
 *
+!/.bash_completion.d
+!/.bash_completion.d/01-git-completion.sh
+!/.bash_completion.d/brew-completion.sh
+!/.bash_completion.d/docker-completion.sh
+!/.bash_completion.d/tmux-completion.sh
+!/.bash_completion.d/vagrant-completion.sh
+!/.bash_completion.d/vboxmanage-completion.sh
 !/.bash_profile
 !/.bashrc
 !/.bashrc.d
@@ -9,15 +16,47 @@
 !/.bashrc.d/cdup
 !/.bashrc.d/colours
 !/.bashrc.d/complete
-!/.bashrc.d/git
-!/.bashrc.d/git-completion.bash
 !/.bashrc.d/less
 !/.bashrc.d/ls
 !/.bashrc.d/prompt
 !/.bashrc.d/puppet
 !/.bashrc.d/vagrant
+!/.curlrc
+!/.gitconfig
+!/.gitignore
+!/.gitignore.d
+!/.gitignore.d/dotfiles
+!/.inputrc
+!/.iterm
+!/.iterm/com.googlecode.iterm2.plist
+!/.nanorc
+!/.sublimetext
+!/.sublimetext/Cobalt (SL).tmTheme
+!/.sublimetext/Color Highlighter
+!/.sublimetext/Color Highlighter/ColorPicker
+!/.sublimetext/Color Highlighter/ColorPicker/ColorPicker_osx_x64
+!/.sublimetext/EasyDiff
+!/.sublimetext/EasyDiff/Context.sublime-menu
+!/.sublimetext/EasyDiff/Side Bar.sublime-menu
+!/.sublimetext/EasyDiff/Tab Context.sublime-menu
+!/.sublimetext/Monokai (SL).tmTheme
+!/.sublimetext/Package Control.merged-ca-bundle
+!/.sublimetext/Package Control.sublime-settings
+!/.sublimetext/Package Control.system-ca-bundle
+!/.sublimetext/Package Control.user-ca-bundle
+!/.sublimetext/Preferences.sublime-settings
+!/.sublimetext/SublimeLinter.sublime-settings
+!/.sublimetext/base16-ocean.dark (SL).tmTheme
+!/.sublimetext/base16-ocean.light (SL).tmTheme
+!/.sublimetext/carbonight-contrast (SL).tmTheme
+!/.sublimetext/darkside-contrast (SL).tmTheme
+!/.sublimetext/freshcut-contrast (SL).tmTheme
+!/.sublimetext/setup.sh
+!/.wgetrc
+!/README.md
 !/bin
 !/bin/$
+!/bin/Vagrantfile.template
 !/bin/calc
 !/bin/curlheader
 !/bin/docker
@@ -42,26 +81,10 @@
 !/bin/httpdump
 !/bin/httpsniff
 !/bin/hub-linux-amd64-2.2.1
-!/bin/hub-linux-amd64-2.2.1/etc
-!/bin/hub-linux-amd64-2.2.1/etc/hub.bash_completion.sh
-!/bin/hub-linux-amd64-2.2.1/etc/hub.zsh_completion
-!/bin/hub-linux-amd64-2.2.1/hub
 !/bin/hub-linux-amd64-2.2.1/LICENSE
-!/bin/hub-linux-amd64-2.2.1/man
-!/bin/hub-linux-amd64-2.2.1/man/hub.1
-!/bin/hub-linux-amd64-2.2.1/man/hub.1.html
-!/bin/hub-linux-amd64-2.2.1/man/hub.1.ronn
 !/bin/hub-linux-amd64-2.2.1/README.md
 !/bin/hub-mac-amd64-2.2.1
-!/bin/hub-mac-amd64-2.2.1/etc
-!/bin/hub-mac-amd64-2.2.1/etc/hub.bash_completion.sh
-!/bin/hub-mac-amd64-2.2.1/etc/hub.zsh_completion
-!/bin/hub-mac-amd64-2.2.1/hub
 !/bin/hub-mac-amd64-2.2.1/LICENSE
-!/bin/hub-mac-amd64-2.2.1/man
-!/bin/hub-mac-amd64-2.2.1/man/hub.1
-!/bin/hub-mac-amd64-2.2.1/man/hub.1.html
-!/bin/hub-mac-amd64-2.2.1/man/hub.1.ronn
 !/bin/hub-mac-amd64-2.2.1/README.md
 !/bin/is_ip
 !/bin/is_up
@@ -90,41 +113,7 @@
 !/bin/untrack
 !/bin/untracked
 !/bin/urlencode
-!/bin/Vagrantfile.template
 !/bin/vcsh-all
 !/bin/vinit
 !/bin/webserver
 !/bin/x
-!/.curlrc
-!/.gitconfig
-!/.gitignore
-!/.gitignore.d
-!/.gitignore.d/dotfiles
-!/.inputrc
-!/.iterm
-!/.iterm/com.googlecode.iterm2.plist
-!/.nanorc
-!/README.md
-!/.sublimetext
-!/.sublimetext/base16-ocean.dark (SL).tmTheme
-!/.sublimetext/base16-ocean.light (SL).tmTheme
-!/.sublimetext/carbonight-contrast (SL).tmTheme
-!/.sublimetext/Cobalt (SL).tmTheme
-!/.sublimetext/Color Highlighter
-!/.sublimetext/Color Highlighter/ColorPicker
-!/.sublimetext/Color Highlighter/ColorPicker/ColorPicker_osx_x64
-!/.sublimetext/darkside-contrast (SL).tmTheme
-!/.sublimetext/EasyDiff
-!/.sublimetext/EasyDiff/Context.sublime-menu
-!/.sublimetext/EasyDiff/Side Bar.sublime-menu
-!/.sublimetext/EasyDiff/Tab Context.sublime-menu
-!/.sublimetext/freshcut-contrast (SL).tmTheme
-!/.sublimetext/Monokai (SL).tmTheme
-!/.sublimetext/Package Control.merged-ca-bundle
-!/.sublimetext/Package Control.sublime-settings
-!/.sublimetext/Package Control.system-ca-bundle
-!/.sublimetext/Package Control.user-ca-bundle
-!/.sublimetext/Preferences.sublime-settings
-!/.sublimetext/setup.sh
-!/.sublimetext/SublimeLinter.sublime-settings
-!/.wgetrc
