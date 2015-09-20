@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# get version of GNU tool (eg. "toolversion grep 2.1 || echo 'grep is too old'")
+toolversion() {
+    local prog="$1" minversion="$2" version
+
+    version=$($prog --version | grep $prog | grep -oE '[0-9]+\.[0-9\.]+')
+
+    if [ "$#" -gt 1 ]; then
+        # compare versions
+        awk -vv1="$version" -vv2="$minversion" 'BEGIN {
+            split(v1, a, /\./); split(v2, b, /\./);
+            if (a[1] == b[1]) {
+                exit (a[2] >= b[2]) ? 0 : 1
+            }
+            else {
+                exit (a[1] >= b[1]) ? 0 : 1
+            }
+        }'
+    else
+        # just report the version
+        echo $version
+    fi
+}
+
+toolversion "$@"
