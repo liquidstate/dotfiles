@@ -117,4 +117,5 @@
 !/bin/vcsh-all
 !/bin/vinit
 !/bin/webserver
+!/bin/wordwrap
 !/bin/x

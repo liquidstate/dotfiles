@@ -1,0 +1,161 @@
+#!/bin/bash
+
+##########################################################################
+# Shellscript:	wordwrap - wrap lines on word boundaries
+# Author     :	Heiner Steven <heiner.steven@odn.de>
+# Date       :	2001-12-10
+# Requires   :	
+# Category   :	Text Utilities
+# SCCS-Id.   :	@(#) wordwrap	1.4 04/09/24
+##########################################################################
+# Description
+#	A very simple text formatting program. The input is read
+#	word by word.  All words are joined using a space (ASCII
+#	32) character. If "-j" was specified, each line is
+#	filled up to the maximum line length, or the next empty
+#	line before it is printed. Each continued line can be
+#	offset by a number of blanks.
+#
+# Note
+#    o	Leading whitespace is ignored
+#    o	An AWK program actually formats the input. It is written in
+#	a way to be portable to a wide range of AWK dialects.
+#    o  thanks for Samus-Aran for suggesting the "-l" option
+#
+# Caveats
+#    o	Should have an option for keeping whitespace inbetween words
+##########################################################################
+
+PN=`basename "$0"`			# Program name
+VER='1.4'
+
+# Uncomment the following line to disable the search for the fastest AWK
+#: ${AWK:=awk}
+
+DEFWIDTH=72				# Default line length
+DEFOFFSET=0				# Default continued line offset
+DEFMARGIN=0				# Default left margin
+
+Usage () {
+    echo >&2 "$PN - wrap lines on word boundaries, $VER
+usage: $PN [-j] [-w width] [-o offset] [-l margin] [file ...]
+    -j  join multiple lines up to the maximum line length
+    -l  left margin (default $DEFMARGIN)
+    -o  offset of continued lines (default $DEFOFFSET)
+    -w  max. line width (default is $DEFWIDTH characters)"
+    exit 1
+}
+
+Msg () {
+    for MsgLine
+    do echo "$PN: $MsgLine" >&2
+    done
+}
+
+Fatal () { Msg "$@"; exit 1; }
+
+##########################################################################
+# searchprog - search program using search PATH
+# usage: searchprog program
+##########################################################################
+
+searchprog () {
+    _search=$1; shift
+
+    for _dir in `echo "$PATH" | sed "s/^:/.:/;s/:\$/:./;s/::/:.:/g;s/:/ /g"`
+    do
+        [ -x "$_dir/$_search" ] || continue
+        echo "$_dir/$_search"
+        return 0
+    done
+
+    return 1
+}
+
+# isint - is argument a valid integer number?
+isint () {
+    case "$1" in
+    	*[!0-9]*)   return 1;;
+	*)	    return 0;;
+    esac
+}
+
+set -- `getopt :hjl:o:w: "$@"` || Usage
+[ $# -lt 1 ] && Usage			# "getopt" detected an error
+
+# Search for an AWK implementation, prefer the fastest one
+: ${AWK:=`searchprog mawk || searchprog gawk || searchprog nawk || echo awk`}
+
+LineWidth=
+JoinLines=false
+LeftMargin=
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-j)	JoinLines=true;;
+	-l)	isint "$2" || Fatal "invalid margin: $2"
+		LeftMargin=$2; shift;;
+	-o)	isint "$2" || Fatal "invalid offset: $2"
+		LineOffset=$2; shift;;
+	-w)	isint "$2" || Fatal "invalid line width: $2"
+		LineWidth=$2; shift;;
+	--)	shift; break;;
+	-h)	Usage;;
+	-*)	Usage;;
+	*)	break;;			# First file name
+    esac
+    shift
+done
+
+: ${LineWidth:=$DEFWIDTH}
+: ${LineOffset:=$DEFOFFSET}
+: ${LeftMargin:=$DEFMARGIN}
+
+$AWK '
+    BEGIN {
+	WORDSEP = " "
+	WORDSEPLEN = length (WORDSEP)
+	maxwidth = '"$LineWidth"'
+	if ( "'"$JoinLines"'" == "true" ) joinlines = 1; else joinlines = 0;
+	line = ""
+	offset = '"$LineOffset"'
+	margin = '"$LeftMargin"'
+	if ( offset >= 1 ) indent = sprintf ("%*s", offset, " ")
+	if ( margin >= 1 ) leftmargin = sprintf ("%*s", margin, "")
+    }
+    {
+    	# Special handling: preserve leading whitespace characters
+	if ( line == "" ) {
+	    for ( i=1; i<length($0); ++i ) {
+		c = substr ($0, i, 1)
+		if ( c != " " && c != "	" ) break
+	    }
+	    if ( i > 1 ) line = substr ($0, 1, i-1)
+	}
+
+	for ( i=1; i<=NF; ++i ) {
+	    newlen = length (line) + length ($i)
+	    if ( line != "" ) newlen += WORDSEPLEN
+	    if ( newlen > maxwidth ) {
+	        print leftmargin line
+		line = indent $i
+	    } else {
+		if ( line != "" ) line = line WORDSEP
+		line = line $i
+	    }
+	}
+
+	# No joining of lines: print the current line immediately
+
+	if ( !joinlines || NF == 0 ) {
+	    print leftmargin line
+	    if ( line != "" && NF == 0 ) print ""	# preserve empty line
+	    line = ""
+	}
+    }
+    END {
+	if ( line != "" ) {
+	    print leftmargin line
+	}
+    }
+' "$@"
