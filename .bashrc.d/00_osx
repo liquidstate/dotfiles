@@ -4,6 +4,7 @@
 #-------------------------------------------------------------
 # Common commands
 alias subl="open -a Sublime\ Text"
+alias s="open -a Sublime\ Text"
 function chrome() {
     if [[ $1 == http* ]]; then
         open -a 'Google Chrome' $1

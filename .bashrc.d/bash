@@ -16,7 +16,7 @@ shopt -s cmdhist
 # If set, then command history will be saved after each command rather
 # than on shell exit. This will effectively provide a shared bash history
 # across multiple sessions.
-#shopt -s histappend
+shopt -s histappend
 #PROMPT_COMMAND='history -a'
 
 # Show the exit value of commands when not 0
