@@ -9,7 +9,19 @@ if [ -e $(which less &>/dev/null) ]; then
     if [ -e `which lesspipe.sh` ]; then
         export LESSOPEN='|`which lesspipe.sh` %s 2>&-'
     fi
-    export LESS='-i -N -w  -z-4 -g -e -M -X -F -R -P%t?f%f \
+
+    # -e   : automatically exit when we reach the end of a file
+    # -F   : automatically exit if the whole file fits in one screen
+    # -g   : only highlight one search match (rather than all)
+    # -i   : searches should be case insensitive
+    # -M   : more verbose prompt
+    # -N   : show line numbers
+    # -P   : custom prompt
+    # -R   : support ansi colour characters
+    # -w   : temporarily highlights first unseen line after a forward movement
+    # -X   : dont send termcap initialization and deinitialization strings
+    # -z-4 : show previous four last lines when scrolling
+    export LESS='-e -F -g -i -M -N -R -w -X -z-4 -P%t?f%f \
                  :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
 
     # Don’t clear the screen after quitting a manual page.
@@ -24,4 +36,3 @@ if [ -e $(which less &>/dev/null) ]; then
     export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
     export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 fi
-

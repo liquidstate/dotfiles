@@ -2,6 +2,12 @@
 # "Design is not just what it looks like and feels like.
 #  Design is how it (sorta) works."
 #-------------------------------------------------------------
+
+# This is OS X, right?
+if [ "$(uname)" != "Darwin" ]; then
+  exit 1;
+fi
+
 # Common commands
 alias subl="open -a Sublime\ Text"
 alias s="open -a Sublime\ Text"

@@ -1,6 +1,8 @@
 # Vagrant
-alias vup='vagrant up'
-alias vp='vagrant provision'
-alias vsh='vagrant ssh'
-alias vssh='vagrant ssh'
-alias vdown='vagrant halt'
+if [ -e $(which vagrant &>/dev/null) ]; then
+	alias vup='vagrant up'
+	alias vp='vagrant provision'
+	alias vsh='vagrant ssh'
+	alias vssh='vagrant ssh'
+	alias vdown='vagrant halt'
+fi
