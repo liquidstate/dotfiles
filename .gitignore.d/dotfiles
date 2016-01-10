@@ -6,8 +6,6 @@
 !/.bash_completion.d/tmux-completion.sh
 !/.bash_completion.d/vagrant-completion.sh
 !/.bash_completion.d/vboxmanage-completion.sh
-!/.bash_profile
-!/.bashrc
 !/.bashrc.d
 !/.bashrc.d/00_osx
 !/.bashrc.d/appdefaults
