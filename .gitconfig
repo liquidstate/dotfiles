@@ -27,6 +27,9 @@
     untrack = rm --cached --
     forget = rm --cached --
 
+    # Show the last few updates
+    lastchange = log -p --follow -n 3
+
     # Start a new local repository and perform initial commit
     this = !git init && git add . && git commmit -m \"Initial commit.\"
 
@@ -81,10 +84,6 @@
     short = rev-parse --short
 
 [color]
-    # Use nice syntax highlighting everywhere.
-    ui = true
-
-[color]
 # ui = true is a superset of all the more specific color options
 #  as documented at http://book.git-scm.com/5_customizing_git.html
 # When set to always, always use colors in all git commands which are capable of colored output.
@@ -113,7 +112,7 @@
     untracked = cyan
 
 [core]
-	editor = nano
+	editor = nano -w
 
 [gui]
     fontdiff = -family Monaco -size 10 -weight normal -slant roman -underline 0 -overstrike 0
